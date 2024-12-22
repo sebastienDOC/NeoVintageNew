@@ -1,7 +1,6 @@
 .card {
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   height: 250px;
   transition: transform 0.3s ease;
@@ -18,7 +17,6 @@
     font-size: 1.5rem;
     font-weight: 500;
     letter-spacing: 1px;
-    line-height: 1.2;
     margin-bottom: 20px;
     color: var(--text-primary);
   }

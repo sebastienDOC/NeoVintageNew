@@ -4,6 +4,7 @@
     alt="Une femme avec un chapeau et un poncho coloré regarde l'objectif"
     class="banner-img"
   />
+
   <div class="banner-content">
     <img src="assets/images/logo.png" alt="Logo" class="banner-logo"/>
     <div class="banner-text-container">
@@ -12,4 +13,15 @@
       <button class="btn btn-primary">Découvrir</button>
     </div>
   </div>
+
 </section>
+
+<div class="card-container">
+  @for (card of cards; track $index) {
+    <app-cards-banner
+      [icon]="card.icon"
+      [title]="card.title"
+      [description]="card.description">
+    </app-cards-banner>
+  }
+</div>
