@@ -1,0 +1,38 @@
+.card {
+  border-radius: 8px;
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease;
+
+  .card-image {
+    width: 400px;
+    height: auto;
+    margin-bottom: 15px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+
+  .card-description {
+    font-size: 1rem;
+    color: var(--text-tertiary);
+    margin-bottom: 25px;
+  }
+
+  .card-button {
+    text-decoration: none;
+    background-color: var(--button-color);
+    color: var(--text-secondary);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--text-primary);
+    }
+  }
+}

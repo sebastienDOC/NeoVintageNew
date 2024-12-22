@@ -1,0 +1,27 @@
+<section class="banner-container">
+  <img
+    src="assets/images/banner-2.jpg"
+    alt="Une femme avec un chapeau et un poncho coloré regarde l'objectif"
+    class="banner-img"
+  />
+
+  <div class="banner-content">
+    <img src="assets/images/logo.png" alt="Logo" class="banner-logo"/>
+    <div class="banner-text-container">
+      <h1 class="banner-title">La mode responsable à portée de tous.</h1>
+      <p class="banner-text">Une passion pour le vintage, au cœur de Chenôve</p>
+      <button class="btn btn-primary">Découvrir</button>
+    </div>
+  </div>
+
+</section>
+
+<div class="card-container">
+  @for (card of cards; track $index) {
+    <app-cards-banner
+      [icon]="card.icon"
+      [title]="card.title"
+      [description]="card.description">
+    </app-cards-banner>
+  }
+</div>
