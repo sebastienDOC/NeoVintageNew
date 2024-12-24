@@ -24,15 +24,16 @@
 
   .card-button {
     text-decoration: none;
-    background-color: var(--button-color);
-    color: var(--text-secondary);
+    background-color: var(--text-secondary);
+    color: var(--text-primary);
     padding: 10px 20px;
     border-radius: 4px;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 
     &:hover {
       background-color: var(--text-primary);
+      color: var(--text-secondary);
     }
   }
 }

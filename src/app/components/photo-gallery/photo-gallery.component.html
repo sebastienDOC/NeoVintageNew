@@ -1,0 +1,62 @@
+<div class="gallery-container">
+  <div class="gallery-content">
+    <h2 class="gallery-title">Galerie de photos</h2>
+    <h3 class="gallery-subtitle">Friperie en ligne</h3>
+    <p class="gallery-text">
+      Découvrez une sélection unique de vêtements et accessoires de seconde main, choisis avec soin pour allier style, qualité et écoresponsabilité.
+      Une manière simple et accessible de consommer autrement, depuis chez vous !
+    </p>
+
+    <div class="about-cards">
+
+      <div class="about-card">
+        <h4>
+          <i class="fa-solid fa-store"></i>
+          Visitez notre boutique Vinted
+        </h4>
+        <p>
+          Découvrez encore plus d'articles exclusifs sur notre page Vinted. Une collection variée pour compléter votre style avec des pièces uniques.
+        </p>
+      </div>
+
+      <a href="https://www.vinted.fr/member/11729892" target="_blank" rel="noopener noreferrer" class="vinted-link">
+        <span class="new-badge">Nouveau</span>
+        Accéder à la boutique Vinted
+      </a>
+
+    </div>
+  </div>
+
+  <div class="gallery-images">
+    <div class="main-photo">
+      <img [src]="selectedPhoto?.url" [alt]="selectedPhoto?.title" />
+      <p>{{ selectedPhoto?.title }}</p>
+    </div>
+
+    <div class="thumbnails">
+      <div
+        *ngFor="let photo of getThumbnails()"
+        class="thumbnail"
+        (click)="selectPhoto(photo)">
+        <img [src]="photo.url" [alt]="photo.title" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="password">
+  <label for="password">Mot de passe :</label>
+  <input type="password" id="password" [(ngModel)]="password" placeholder="Entrez le mot de passe" />
+  <button (click)="enableEditMode()">Activer le mode édition</button>
+</div>
+
+<div *ngIf="editMode" class="edit-mode">
+  <h2>Mode Édition</h2>
+  <div *ngFor="let photo of photos; let i = index" class="photo-edit">
+    <label>Titre :</label>
+    <input [(ngModel)]="photos[i].title" />
+    <label>URL :</label>
+    <input [(ngModel)]="photos[i].url" />
+  </div>
+  <button (click)="savePhotos()">Sauvegarder les modifications</button>
+</div>

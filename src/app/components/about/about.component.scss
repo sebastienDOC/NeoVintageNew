@@ -1,5 +1,5 @@
 .about-container {
-  padding: 120px 0;
+  padding: 70px 0 120px 0;
   display: flex;
 
   .about-image {
@@ -13,6 +13,7 @@
       border-bottom-left-radius: 10%;
       border-top-right-radius: 50%;
       border-bottom-right-radius: 10%;
+      border-radius: 100%;
       object-fit: cover;
     }
   }
@@ -34,7 +35,6 @@
       font-size: 40px;
       padding-bottom: 10px;
       text-align-last: left;
-
     }
 
     .about-text {
@@ -43,6 +43,7 @@
       text-align-last: left;
       color: var(--text-tertiary);
       margin-bottom: 30px;
+      line-height: 1.4;
     }
 
     .about-cards {
@@ -55,7 +56,6 @@
       .about-card {
         background: var(--background-secondary);
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 30px;
         width: 100%;
 
@@ -76,8 +76,8 @@
           margin-left: 24px;
           font-size: 17px;
           color: var(--text-secondary);
+          line-height: 1.4;
         }
-
       }
     }
   }
