@@ -1,0 +1,173 @@
+.gallery-container {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 0;
+
+  .gallery-content {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+    .gallery-title {
+      font-size: 20px;
+      padding-bottom: 10px;
+      color: var(--background-secondary);
+      text-align-last: left;
+    }
+    .gallery-subtitle {
+      font-size: 40px;
+      padding-bottom: 10px;
+      text-align-last: left;
+    }
+    .gallery-text {
+      font-size: 16px;
+      text-align-last: left;
+      color: var(--text-tertiary);
+      margin-bottom: 30px;
+      line-height: 1.4;
+    }
+    .vinted-button {
+      text-align: center;
+      margin-top: 30px;
+      a {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: var(--button-color);
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        &:hover {
+          background-color: var(--button-color-hover);
+        }
+      }
+    }
+    .about-cards {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-direction: column;
+      overflow: hidden;
+
+      .vinted-link {
+        width: fit-content;
+        display: inline-block;
+        padding: 12px 20px;
+        background-color: var(--button-color);
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        position: relative;
+        transition: all 0.3s ease;
+        text-align: center;
+        overflow: visible;
+        margin: auto;
+
+        &:hover {
+          background-color: var(--button-color-hover);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+
+        .new-badge {
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          background-color: var(--text-primary);
+          color: var(--text-secondary);
+          font-size: 10px;
+          font-weight: bold;
+          padding: 4px 8px;
+          border-radius: 50px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+          animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.2);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      }
+
+      .about-card {
+        background: var(--background-secondary);
+        border-radius: 8px;
+        padding: 30px;
+        width: 100%;
+
+        h4 {
+          font-size: 18px;
+          margin-bottom: 10px;
+          color: var(--text-secondary);
+          display: flex;
+          i {
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+            margin-right: 10px;
+          }
+        }
+
+        p {
+          margin-left: 24px;
+          font-size: 17px;
+          color: var(--text-secondary);
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+
+  .gallery-images {
+    width: 35%;
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+    align-items: center;
+    .main-photo {
+      text-align: center;
+      img {
+        width: 300px;
+        height: 400px;
+        object-fit: cover;
+      }
+      p {
+        font-family: 'Manrope',Helvetica,Arial,Lucida,sans-serif;
+        font-size: 16px;
+        color: var(--text-tertiary);
+        margin-top: 10px;
+      }
+    }
+    .thumbnails {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      .thumbnail {
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        img {
+          max-height: 120px;
+          width: 100px;
+          object-fit: cover;
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+}
