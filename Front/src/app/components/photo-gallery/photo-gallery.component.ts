@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-photo-gallery',
@@ -17,8 +18,8 @@ export class PhotoGalleryComponent implements OnInit {
   editMode = false;
   password = '';
 
-  private readonly API_URL = 'http://localhost:3000/photos';
-  private readonly VALIDATE_PASSWORD_URL = 'http://localhost:3000/validate-password';
+  private readonly API_URL = `${environment.apiUrl}/photos`;
+  private readonly VALIDATE_PASSWORD_URL = `${environment.apiUrl}/validate-password`;
 
   constructor(private http: HttpClient) {}
 
@@ -32,9 +33,7 @@ export class PhotoGalleryComponent implements OnInit {
         this.photos = data;
         this.selectedPhoto = this.photos[0];
       },
-      error: (error) => {
-        alert('Erreur : ' + (error.error?.error || 'Erreur inconnue'));
-      }
+      error: (error) => alert('Erreur : ' + (error.error?.error || 'Erreur inconnue'))
     });
   }
 
@@ -48,54 +47,41 @@ export class PhotoGalleryComponent implements OnInit {
   }
 
   moveCarousel(direction: 'prev' | 'next'): void {
-    if (direction === 'prev') {
-      this.currentIndex = (this.currentIndex - 1 + this.photos.length) % this.photos.length;
-    } else if (direction === 'next') {
-      this.currentIndex = (this.currentIndex + 1) % this.photos.length;
-    }
-
+    this.currentIndex = direction === 'prev'
+      ? (this.currentIndex - 1 + this.photos.length) % this.photos.length
+      : (this.currentIndex + 1) % this.photos.length;
     this.selectedPhoto = this.photos[this.currentIndex];
   }
 
   enableEditMode(): void {
     if (!this.password) {
-      alert('Veuillez entrer le mot de passe pour activer le mode édition.');
+      alert('Veuillez entrer le mot de passe');
       return;
     }
 
     this.http.post(this.VALIDATE_PASSWORD_URL, { password: this.password }).subscribe({
-      next: () => {
-        this.editMode = true;
-      },
+      next: () => this.editMode = true,
       error: (error) => {
-        if (error.status === 403) {
-          alert('Mot de passe incorrect !');
-        } else if (error.status === 400) {
-          alert('Veuillez entrer un mot de passe');
-        } else {
-          alert('Erreur : ' + (error.error?.error || 'Erreur inconnue'));
-        }
+        if (error.status === 403) alert('Mot de passe incorrect !');
+        else if (error.status === 400) alert('Mot de passe requis');
+        else alert('Erreur : ' + (error.error?.error || 'Erreur inconnue'));
       }
     });
   }
 
   savePhotos(): void {
     if (!this.password) {
-      alert('Veuillez entrer le mot de passe pour sauvegarder les modifications.');
+      alert('Veuillez entrer le mot de passe');
       return;
     }
 
-    const headers = { password: this.password };
-    this.http.put(this.API_URL, this.photos, { headers }).subscribe({
-      next: () => {
-        alert('Photos mises à jour avec succès !');
-      },
+    this.http.put(this.API_URL, this.photos, {
+      headers: { password: this.password }
+    }).subscribe({
+      next: () => alert('Photos mises à jour !'),
       error: (error) => {
-        if (error.status === 403) {
-          alert('Mot de passe incorrect !');
-        } else {
-          alert('Erreur serveur : ' + (error.error?.error || 'Erreur inconnue'));
-        }
+        if (error.status === 403) alert('Mot de passe incorrect !');
+        else alert('Erreur : ' + (error.error?.error || 'Erreur inconnue'));
       }
     });
   }

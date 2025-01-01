@@ -1,18 +1,19 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const cors = require('cors');
 const crypto = require('crypto');
-const app = express();
 
-const JSON_FILE = './photos.json';
-const HASHED_PASSWORD = 'd15cca3d5854f840515eeef18906ec66607a76da67b9c5688ec976c4bac5ba28'; // Hash de "Z9a81sd2"
+const app = express();
+const JSON_FILE = process.env.VERCEL ? '/tmp/photos.json' : './photos.json';
+const HASHED_PASSWORD = process.env.HASHED_PASSWORD || 'd15cca3d5854f840515eeef18906ec66607a76da67b9c5688ec976c4bac5ba28';
+const API_BASE = process.env.API_URL || 'http://localhost:3000/api';
 
 app.use(cors());
 app.use(bodyParser.json());
 
-// Endpoint GET : Récupérer les photos
-app.get('/photos', (req, res) => {
+app.get(`${API_BASE}/photos`, (req, res) => {
   fs.readFile(JSON_FILE, 'utf8', (err, data) => {
     if (err) {
       console.error('Erreur de lecture du fichier JSON', err);
@@ -22,37 +23,27 @@ app.get('/photos', (req, res) => {
   });
 });
 
-// Endpoint PUT : Mettre à jour les photos
-app.put('/photos', (req, res) => {
+app.put(`${API_BASE}/photos`, (req, res) => {
   const { password } = req.headers;
-
-  if (!password) {
-    return res.status(401).json({ error: 'Mot de passe requis' });
-  }
+  if (!password) return res.status(401).json({ error: 'Mot de passe requis' });
 
   const hashedInput = crypto.createHash('sha256').update(password).digest('hex');
   if (hashedInput !== HASHED_PASSWORD) {
     return res.status(403).json({ error: 'Mot de passe incorrect' });
   }
 
-  const updatedPhotos = req.body;
-
-  fs.writeFile(JSON_FILE, JSON.stringify(updatedPhotos, null, 2), 'utf8', err => {
+  fs.writeFile(JSON_FILE, JSON.stringify(req.body, null, 2), 'utf8', err => {
     if (err) {
-      console.error('Erreur d\'écriture dans le fichier JSON', err);
+      console.error('Erreur d\'écriture', err);
       return res.status(500).json({ error: 'Erreur serveur' });
     }
-    res.json({ message: 'Photos mises à jour avec succès' });
+    res.json({ message: 'Photos mises à jour' });
   });
 });
 
-// Endpoint POST : Valider le mot de passe
-app.post('/validate-password', (req, res) => {
+app.post(`${API_BASE}/validate-password`, (req, res) => {
   const { password } = req.body;
-
-  if (!password) {
-    return res.status(400).json({ error: 'Mot de passe requis' });
-  }
+  if (!password) return res.status(400).json({ error: 'Mot de passe requis' });
 
   const hashedInput = crypto.createHash('sha256').update(password).digest('hex');
   if (hashedInput !== HASHED_PASSWORD) {
@@ -62,8 +53,5 @@ app.post('/validate-password', (req, res) => {
   res.status(200).json({ message: 'Mot de passe valide' });
 });
 
-// Démarrer le serveur
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Serveur démarré sur http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server: ${PORT}`));
