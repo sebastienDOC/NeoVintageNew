@@ -1,0 +1,55 @@
+<button (click)="showPasswordModal = true" class="edit-button">
+  Éditer le contenu
+</button>
+
+@if (showPasswordModal) {
+  <div class="modal-overlay" (click)="closeModals($event)">
+    <div class="modal-content">
+      <div class="password-container">
+        <h3>Authentification</h3>
+        <input type="password" [(ngModel)]="password" placeholder="Entrez le mot de passe" />
+        <div class="modal-buttons">
+          <button (click)="enableEdit()">Valider</button>
+          <button (click)="showPasswordModal = false">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@if (editMode) {
+  <div class="modal-overlay" (click)="closeModals($event)">
+    <div class="modal-content edit-mode">
+      <h2>Mode Édition</h2>
+
+      <h3>Articles</h3>
+      @for (photo of photos; track $index) {
+        <div class="content-edit">
+          <label>Titre :</label>
+          <input [(ngModel)]="photos[$index].title" />
+          <label>URL :</label>
+          <input [(ngModel)]="photos[$index].url" />
+        </div>
+      }
+
+      <h3>Créateurs</h3>
+      @for (creator of creators; track $index) {
+        <div class="content-edit">
+          <label>Titre :</label>
+          <input [(ngModel)]="creators[$index].title" />
+          <label>Sous-titre :</label>
+          <input [(ngModel)]="creators[$index].subtitle" />
+          <label>Image URL :</label>
+          <input [(ngModel)]="creators[$index].image" />
+          <label>URL :</label>
+          <input [(ngModel)]="creators[$index].url" />
+        </div>
+      }
+
+      <div class="modal-buttons">
+        <button (click)="saveAll()">Sauvegarder</button>
+        <button (click)="editMode = false">Fermer</button>
+      </div>
+    </div>
+  </div>
+}

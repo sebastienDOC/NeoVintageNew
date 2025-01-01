@@ -44,19 +44,7 @@
   </div>
 </div>
 
-<div class="password">
-  <label for="password">Mot de passe :</label>
-  <input type="password" id="password" [(ngModel)]="password" placeholder="Entrez le mot de passe" />
-  <button (click)="enableEditMode()">Activer le mode édition</button>
-</div>
-
-<div *ngIf="editMode" class="edit-mode">
-  <h2>Mode Édition</h2>
-  <div *ngFor="let photo of photos; let i = index" class="photo-edit">
-    <label>Titre :</label>
-    <input [(ngModel)]="photos[i].title" />
-    <label>URL :</label>
-    <input [(ngModel)]="photos[i].url" />
-  </div>
-  <button (click)="savePhotos()">Sauvegarder les modifications</button>
-</div>
+<app-edit-content
+  [photos]="photos"
+  (photosChange)="loadPhotos()"
+></app-edit-content>
