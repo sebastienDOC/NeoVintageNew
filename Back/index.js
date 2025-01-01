@@ -6,14 +6,13 @@ const cors = require('cors');
 const crypto = require('crypto');
 
 const app = express();
-const JSON_FILE = process.env.VERCEL ? '/tmp/photos.json' : './photos.json';
+const JSON_FILE = process.env.VERCEL || './photos.json';
 const HASHED_PASSWORD = process.env.HASHED_PASSWORD || 'd15cca3d5854f840515eeef18906ec66607a76da67b9c5688ec976c4bac5ba28';
-const API_BASE = process.env.API_URL || 'http://localhost:3000/api';
 
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get(`${API_BASE}/photos`, (req, res) => {
+app.get('/photos', (req, res) => {
   fs.readFile(JSON_FILE, 'utf8', (err, data) => {
     if (err) {
       console.error('Erreur de lecture du fichier JSON', err);
@@ -23,7 +22,7 @@ app.get(`${API_BASE}/photos`, (req, res) => {
   });
 });
 
-app.put(`${API_BASE}/photos`, (req, res) => {
+app.put(`/photos`, (req, res) => {
   const { password } = req.headers;
   if (!password) return res.status(401).json({ error: 'Mot de passe requis' });
 
@@ -41,7 +40,7 @@ app.put(`${API_BASE}/photos`, (req, res) => {
   });
 });
 
-app.post(`${API_BASE}/validate-password`, (req, res) => {
+app.post(`/validate-password`, (req, res) => {
   const { password } = req.body;
   if (!password) return res.status(400).json({ error: 'Mot de passe requis' });
 
