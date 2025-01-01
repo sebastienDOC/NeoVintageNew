@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://votre-app.vercel.app/api'
+    apiUrl: 'https://neo-vintage.vercel.app/api'
 };
