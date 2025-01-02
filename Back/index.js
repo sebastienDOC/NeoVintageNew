@@ -1,61 +1,69 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 const cors = require('cors');
 const crypto = require('crypto');
+const mongoose = require('mongoose');
+const { Photo, Creator } = require('./db');
 
 const app = express();
-const PHOTOS_FILE = process.env.VERCEL ? '/tmp/photos.json' : './data/photos.json';
-const CREATORS_FILE = process.env.VERCEL ? '/tmp/creators.json' : './data/creators.json';
-const HASHED_PASSWORD = process.env.HASHED_PASSWORD || 'd15cca3d5854f840515eeef18906ec66607a76da67b9c5688ec976c4bac5ba28';
+const HASHED_PASSWORD = process.env.HASHED_PASSWORD;
 
 app.use(cors());
 app.use(bodyParser.json());
 
-// Photos routes
-app.get('/photos', (req, res) => {
-  fs.readFile(PHOTOS_FILE, 'utf8', (err, data) => {
-    if (err) return res.status(500).json({ error: 'Erreur serveur' });
-    res.json(JSON.parse(data));
-  });
+mongoose.connect(process.env.MONGODB_URL);
+
+app.get('/photos', async (req, res) => {
+  try {
+    const photos = await Photo.find();
+    res.json(photos);
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
 });
 
-app.put('/photos', (req, res) => {
+app.put('/photos', async (req, res) => {
   const { password } = req.headers;
   if (!password) return res.status(401).json({ error: 'Mot de passe requis' });
 
   const hashedInput = crypto.createHash('sha256').update(password).digest('hex');
   if (hashedInput !== HASHED_PASSWORD) return res.status(403).json({ error: 'Mot de passe incorrect' });
 
-  fs.writeFile(PHOTOS_FILE, JSON.stringify(req.body, null, 2), 'utf8', err => {
-    if (err) return res.status(500).json({ error: 'Erreur serveur' });
+  try {
+    await Photo.deleteMany({});
+    await Photo.insertMany(req.body);
     res.json({ message: 'Photos mises à jour' });
-  });
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
 });
 
-// Creators routes
-app.get('/creators', (req, res) => {
-  fs.readFile(CREATORS_FILE, 'utf8', (err, data) => {
-    if (err) return res.status(500).json({ error: 'Erreur serveur' });
-    res.json(JSON.parse(data));
-  });
+app.get('/creators', async (req, res) => {
+  try {
+    const creators = await Creator.find();
+    res.json(creators);
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
 });
 
-app.put('/creators', (req, res) => {
+app.put('/creators', async (req, res) => {
   const { password } = req.headers;
   if (!password) return res.status(401).json({ error: 'Mot de passe requis' });
 
   const hashedInput = crypto.createHash('sha256').update(password).digest('hex');
   if (hashedInput !== HASHED_PASSWORD) return res.status(403).json({ error: 'Mot de passe incorrect' });
 
-  fs.writeFile(CREATORS_FILE, JSON.stringify(req.body, null, 2), 'utf8', err => {
-    if (err) return res.status(500).json({ error: 'Erreur serveur' });
+  try {
+    await Creator.deleteMany({});
+    await Creator.insertMany(req.body);
     res.json({ message: 'Creators mis à jour' });
-  });
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
 });
 
-// Password validation
 app.post('/validate-password', (req, res) => {
   const { password } = req.body;
   if (!password) return res.status(400).json({ error: 'Mot de passe requis' });
