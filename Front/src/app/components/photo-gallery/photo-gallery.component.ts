@@ -17,7 +17,7 @@ export class PhotoGalleryComponent implements OnInit {
   selectedPhoto: any;
   currentIndex = 0;
 
-  private readonly API_URL = `${environment.apiUrl}/photos`;
+  private readonly API_URL = `${environment.apiUrl}/photos` || process.env['API_URL_PHOTOS'] || '';
 
   constructor(private http: HttpClient) {}
 

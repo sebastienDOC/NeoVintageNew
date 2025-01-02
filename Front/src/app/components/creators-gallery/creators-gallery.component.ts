@@ -13,7 +13,7 @@ import { EditContentComponent } from '../edit-content/edit-content.component';
 })
 export class CreatorsGalleryComponent implements OnInit {
  creators: any[] = [];
- private readonly API_URL = `${environment.apiUrl}/creators`;
+ private readonly API_URL = `${environment.apiUrl}/creators` || process.env['API_URL_CREATORS'] || '';
 
  constructor(private http: HttpClient) {}
 
