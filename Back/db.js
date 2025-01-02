@@ -12,7 +12,7 @@ const CreatorSchema = mongoose.Schema({
   url: String
 });
 
-const Photo = mongoose.model('Photo', PhotoSchema);
-const Creator = mongoose.model('Creator', CreatorSchema);
+const Photo = mongoose.model('Photo', PhotoSchema, 'Photos');
+const Creator = mongoose.model('Creator', CreatorSchema, 'Creators');
 
 module.exports = { Photo, Creator };
