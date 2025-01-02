@@ -4,10 +4,11 @@ import { HeaderComponent } from "../../components/header/header.component";
 import { ServicesComponent } from "../../components/services/services.component";
 import { PhotoGalleryComponent } from "../../components/photo-gallery/photo-gallery.component";
 import { CreatorsGalleryComponent } from "../../components/creators-gallery/creators-gallery.component";
+import { CustomShoppingComponent } from "../../components/custom-shopping/custom-shopping.component";
 
 @Component({
   selector: 'app-landing-page',
-  imports: [HeaderComponent, ServicesComponent, AboutComponent, PhotoGalleryComponent, CreatorsGalleryComponent],
+  imports: [HeaderComponent, ServicesComponent, AboutComponent, PhotoGalleryComponent, CreatorsGalleryComponent, CustomShoppingComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss'
 })
