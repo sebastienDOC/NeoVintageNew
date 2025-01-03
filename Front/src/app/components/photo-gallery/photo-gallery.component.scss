@@ -49,58 +49,101 @@
     }
     .about-cards {
       display: flex;
-      gap: 30px;
       justify-content: center;
       flex-direction: column;
       overflow: hidden;
+      gap: 25px;
 
-      .vinted-link {
-        width: fit-content;
-        display: inline-block;
-        padding: 12px 20px;
-        background-color: var(--button-color);
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 8px;
-        position: relative;
-        transition: all 0.3s ease;
-        text-align: center;
-        overflow: visible;
-        margin: auto;
+      .about-vinted {
+        display: flex;
+        .legacy-stats {
+          background-color: #f8f9fa;
+          border-radius: 8px;
+          margin: auto;
+          width: 50%;
 
-        &:hover {
-          background-color: var(--button-color-hover);
+          .stats-card {
+            text-align: center;
+
+            .rating-display {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 10px;
+
+              .rating {
+                font-size: 24px;
+                font-weight: bold;
+              }
+
+              .stars {
+                color: #ffd700;
+
+                .star {
+                  font-size: 18px;
+                  color: #ddd;
+
+                  &.filled {
+                    color: #ffd700;
+                  }
+                }
+              }
+
+              .total-reviews {
+                color: #666;
+              }
+            }
+          }
         }
 
-        &:active {
-          transform: scale(0.95);
-        }
-
-        .new-badge {
-          position: absolute;
-          top: -5px;
-          right: -5px;
-          background-color: var(--text-primary);
+        .vinted-link {
+          width: 50%;
+          display: inline-block;
+          padding: 12px 20px;
+          background-color: var(--button-color);
           color: var(--text-secondary);
-          font-size: 10px;
+          text-decoration: none;
+          font-size: 16px;
           font-weight: bold;
-          padding: 4px 8px;
-          border-radius: 50px;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-          animation: pulse 1.5s infinite;
-        }
+          border-radius: 8px;
+          position: relative;
+          transition: all 0.3s ease;
+          text-align: center;
+          overflow: visible;
+          margin: auto;
 
-        @keyframes pulse {
-          0% {
-            transform: scale(1);
+          &:hover {
+            background-color: var(--button-color-hover);
           }
-          50% {
-            transform: scale(1.2);
+
+          &:active {
+            transform: scale(0.95);
           }
-          100% {
-            transform: scale(1);
+
+          .new-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--text-primary);
+            color: var(--text-secondary);
+            font-size: 10px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            animation: pulse 1.5s infinite;
+          }
+
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.2);
+            }
+            100% {
+              transform: scale(1);
+            }
           }
         }
       }
