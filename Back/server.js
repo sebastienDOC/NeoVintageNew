@@ -5,6 +5,7 @@ const { port } = require('./config/environment');
 
 const photoRoutes = require('./routes/photo.routes');
 const creatorRoutes = require('./routes/creator.routes');
+const feedbackRoutes = require('./routes/feedback.routes');
 const authRoutes = require('./routes/auth.routes');
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/photos', photoRoutes);
 app.use('/creators', creatorRoutes);
+app.use('/feedback', feedbackRoutes);
 app.use('/auth', authRoutes);
 
 connectDB();
