@@ -8,7 +8,6 @@
     </p>
 
     <div class="about-cards">
-
       <div class="about-card">
         <h4>
           <i class="fa-solid fa-store"></i>
@@ -19,10 +18,27 @@
         </p>
       </div>
 
-      <a href="https://www.vinted.fr/member/11729892" target="_blank" rel="noopener noreferrer" class="vinted-link">
-        <span class="new-badge">Nouveau</span>
-        Accéder à la boutique Vinted
-      </a>
+      <div class="about-vinted">
+        <a href="https://www.vinted.fr/member/11729892" target="_blank" rel="noopener noreferrer" class="vinted-link">
+          <span class="new-badge">Nouveau</span>
+          Accéder à la boutique Vinted
+        </a>
+
+        <div class="legacy-stats">
+          <div class="stats-card">
+            <h3>Nos avis Vinted au 01/01/2025</h3>
+            <div class="rating-display">
+              <span class="rating">5.0</span>
+              <div class="stars">
+                @for (star of [1,2,3,4,5]; track $index) {
+                  <span class="star">⭐</span>
+                }
+              </div>
+              <span class="total-reviews">229 avis vérifiés</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
